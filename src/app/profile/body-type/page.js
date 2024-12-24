@@ -11,11 +11,17 @@ import rectangle from "@/assets/rectangle.png";
 import hourglass from "@/assets/hourglass.png";
 import bodymeasure from "@/assets/body-measure.png";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { saveBodyType } from "@/lib/firebase/database";
 
 const BodyTypePage = () => {
   const [selectedType, setSelectedType] = useState(null);
   const [showMeasurements, setShowMeasurements] = useState(false);
   const [calculated, setCalculated] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
+
   const [measurements, setMeasurements] = useState({
     bust: "",
     waist: "",
@@ -63,8 +69,20 @@ const BodyTypePage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!selectedType) {
+      alert("Please select a body type");
+      return;
+    }
+    setLoading(true);
+    const { error } = await saveBodyType(selectedType);
+    setLoading(false);
 
-    // Handle submission to backend
+    if (error) {
+      alert(error);
+      return;
+    }
+
+    router.push("/");
   };
   const handleBodyTypeMeasure = async (e) => {
     e.preventDefault;
@@ -115,8 +133,8 @@ const BodyTypePage = () => {
     } else {
       result = "triangle";
     }
-    if(result.length>0){
-        setCalculated(true)
+    if (result.length > 0) {
+      setCalculated(true);
     }
 
     setSelectedType(result);
@@ -179,7 +197,7 @@ const BodyTypePage = () => {
                     className="mt-4 pt-4 border-t border-gray-200"
                   >
                     <p className="text-sm font-medium text-black">
-                      ✓ Your {calculated ? `calculated`: ``} body type
+                      ✓ Your {calculated ? `calculated` : ``} body type
                     </p>
                   </motion.div>
                 )}
