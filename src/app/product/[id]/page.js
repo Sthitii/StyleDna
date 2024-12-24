@@ -3,7 +3,7 @@
 import React from "react";
 import { useState } from "react";
 import Image from "next/image";
-import { Heart, ChevronDown } from "lucide-react";
+import ChatBot from "@/components/shared/chatbot";
 import front from "@/assets/front.avif";
 import side from "@/assets/side.avif";
 import back from "@/assets/back.avif";
@@ -133,6 +133,7 @@ export default function ProductDetail({ params: paramsPromise }) {
           </div>
         </div>
       </div>
+      <ChatBot/>
     </>
   );
 }
