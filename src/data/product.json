@@ -1,0 +1,40 @@
+{
+  "products": [
+    {
+      "product_id": 1,
+      "name": "Navy Cord Check Starlight Midi Dress",
+      "price": 53.0,
+      "originalPrice": 89.0,
+      "image_url": "https://iili.io/2wS62B1.jpg",
+      "sizes": [4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24],
+      "color": "red",
+      "features": [
+        "Low v-neck",
+        "Long balloon sleeves",
+        "Covered buttons",
+        "Pockets",
+        "Panelled waist designed to flatter"
+      ],
+      "description": "An autumn-ready take on our stellar style, Starlight. We're obsessed with her soft gathering, balloon sleeves and pretty line of covered buttons – she's even got pockets. Style yours with heeled boots.",
+      "bodytypes": ["hourglass", "triangle"]
+    },
+    {
+      "product_id": 2,
+      "name": "Navy Cord Check Starlight Midi Dress",
+      "price": 53.0,
+      "originalPrice": 89.0,
+      "image_url": "https://iili.io/2wS62B1.jpg",
+      "sizes": [4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24],
+      "color": "blue",
+      "features": [
+        "Low v-neck",
+        "Long balloon sleeves",
+        "Covered buttons",
+        "Pockets",
+        "Panelled waist designed to flatter"
+      ],
+      "description": "An autumn-ready take on our stellar style, Starlight. We're obsessed with her soft gathering, balloon sleeves and pretty line of covered buttons – she's even got pockets. Style yours with heeled boots.",
+      "bodytypes": ["hourglass", "triangle"]
+    }
+  ]
+}

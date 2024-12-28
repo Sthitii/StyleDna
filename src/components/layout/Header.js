@@ -8,7 +8,7 @@ import { ShoppingBag, Search } from "lucide-react";
 
 const Header = () => {
   const { user } = useAuth();
-
+ 
   return (
     <nav className="border-b sticky top-0 bg-white z-50">
       <div className="max-w-7xl mx-auto px-4 py-4">

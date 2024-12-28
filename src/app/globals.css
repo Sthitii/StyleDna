@@ -19,3 +19,32 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+/* Add to your global CSS file (e.g., globals.css) */
+.product-card {
+  @apply bg-white rounded-lg overflow-hidden transition-all duration-300;
+}
+
+.product-card h3 {
+  @apply text-lg font-medium text-gray-900 mb-2;
+}
+
+.product-image {
+  @apply relative w-full rounded-lg overflow-hidden mb-4;
+  aspect-ratio: 4/3;
+}
+
+.product-image img {
+  @apply object-cover w-full h-full transition-transform duration-300;
+}
+
+.product-details {
+  @apply space-y-3 px-1;
+}
+
+.product-info {
+  @apply flex flex-col text-sm text-gray-700;
+}
+
+.product-info span.font-medium {
+  @apply text-gray-900;
+}

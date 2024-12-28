@@ -66,14 +66,16 @@ const ProfileDropdown = ({ user }) => {
                     </p>
                   </div>
 
-                  <Link
+                  <a
                     href="/profile/body-type"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     onClick={() => setIsOpen(false)}
                   >
                     <Ruler className="w-4 h-4 mr-3" />
                     Set Body Type
-                  </Link>
+                  </a>
 
                 
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Info } from "lucide-react";
@@ -13,8 +13,12 @@ import bodymeasure from "@/assets/body-measure.png";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { saveBodyType } from "@/lib/firebase/database";
+import { useAuth } from "@/context/AuthContext";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/lib/firebase/config";
 
 const BodyTypePage = () => {
+  const { user } = useAuth();
   const [selectedType, setSelectedType] = useState(null);
   const [showMeasurements, setShowMeasurements] = useState(false);
   const [calculated, setCalculated] = useState(false);
@@ -28,6 +32,17 @@ const BodyTypePage = () => {
     highHip: "",
     hip: "",
   });
+  useEffect(() => {
+    const fetchBodyType = async () => {
+      if (user?.email) {
+        const bodyTypeDoc = await getDoc(doc(db, "bodyTypes", user.uid));
+        if (bodyTypeDoc.exists()) {
+          setSelectedType(bodyTypeDoc.data().bodyType);
+        }
+      }
+    };
+    fetchBodyType();
+  }, [user]);
 
   const bodyTypes = [
     {

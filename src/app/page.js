@@ -11,7 +11,6 @@ import hero2 from "@/assets/hero7.jpg";
 import hero3 from "@/assets/hero4.jpg";
 import Image from "next/image";
 import ChatBot from "@/components/shared/chatbot";
-import { useAuth } from "@/context/AuthContext";
 import Header from "@/components/layout/Header";
 
 const Home = () => {
