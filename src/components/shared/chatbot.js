@@ -4,6 +4,7 @@ import { MessageCircle, Send, X } from "lucide-react";
 
 
 const ChatBot = (userBodyType) => {
+  console.log(userBodyType, 'kuch bt value?')
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState([

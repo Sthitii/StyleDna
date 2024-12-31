@@ -32,6 +32,8 @@ const Home = () => {
     fetchBodyType();
   }, [user]);
 
+  console.log(userBodyType, user?.email, "any value present")
+
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -203,7 +205,11 @@ const Home = () => {
           </div>
         </div>
       </footer>
-      {userBodyType && <ChatBot userBodyType={userBodyType} />}
+      {userBodyType?.length > 0 ? (
+        <ChatBot userBodyType={userBodyType} />
+      ) : (
+        <ChatBot userBodyType='' />
+      )}
     </div>
   );
 };
