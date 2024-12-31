@@ -158,7 +158,7 @@ const LoginForm = () => {
               </div>
 
               <div className="flex justify-end">
-                <Link href="/working" className="text-sm underline">
+                <Link href="forgot-password" className="text-sm underline">
                   Forgot your password?
                 </Link>
               </div>
