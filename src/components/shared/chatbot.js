@@ -67,6 +67,7 @@ const ChatBot = (userBodyType) => {
   };
 
   const handleKeyPress = (e) => {
+    console.log('Key pressed', e.key);  // Add this log
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSend();

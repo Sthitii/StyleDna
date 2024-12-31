@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense, lazy } from "react";
 import Link from "next/link";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -8,7 +8,7 @@ import hero1 from "@/assets/hero2.jpg";
 import hero2 from "@/assets/hero7.jpg";
 import hero3 from "@/assets/hero4.jpg";
 import Image from "next/image";
-import ChatBot from "@/components/shared/chatbot";
+const ChatBot = lazy(() => import("@/components/shared/chatbot"));
 import Header from "@/components/layout/Header";
 import productData from "@/data/product.json";
 import ProductCarousel from "@/components/products/ProductCarousel";
@@ -17,7 +17,7 @@ import { db } from "@/lib/firebase/config";
 import { useAuth } from "@/context/AuthContext";
 
 const Home = () => {
-  const [userBodyType, setUserBodyType] = useState(null);
+  const [userBodyType, setUserBodyType] = useState("");
   const { user } = useAuth();
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const Home = () => {
     fetchBodyType();
   }, [user]);
 
-  console.log(userBodyType, user?.email, "any value present")
+  console.log(userBodyType, user?.email, "any value present");
 
   const responsive = {
     superLargeDesktop: {
@@ -205,11 +205,9 @@ const Home = () => {
           </div>
         </div>
       </footer>
-      {userBodyType?.length > 0 ? (
+      <Suspense fallback={<div>Loading...</div>}>
         <ChatBot userBodyType={userBodyType} />
-      ) : (
-        <ChatBot userBodyType='' />
-      )}
+      </Suspense>
     </div>
   );
 };

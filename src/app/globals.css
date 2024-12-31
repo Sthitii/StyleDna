@@ -13,6 +13,9 @@
     --foreground: #ededed;
   }
 }
+input[type="text"] {
+  pointer-events: auto !important;
+}
 
 body {
   color: var(--foreground);
@@ -49,10 +52,10 @@ body {
   @apply text-gray-900;
 }
 .hide-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .hide-scrollbar::-webkit-scrollbar {
-  display: none;  /* Chrome, Safari and Opera */
+  display: none; /* Chrome, Safari and Opera */
 }
