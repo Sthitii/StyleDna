@@ -1,16 +1,11 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import { MessageCircle, Send, X } from "lucide-react";
-import { useAuth } from "@/context/AuthContext";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "@/lib/firebase/config";
 
 
-const ChatBot = () => {
-  const { user } = useAuth();
+const ChatBot = (userBodyType) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [userBodyType, setUserBodyType] = useState(null);
   const [messages, setMessages] = useState([
     {
       text: "Hello! I'm Sthitii, your fashion assistant. How can I help you today?",
@@ -20,17 +15,7 @@ const ChatBot = () => {
   const [inputMessage, setInputMessage] = useState("");
   const messagesEndRef = useRef(null);
 
-  useEffect(() => {
-    const fetchBodyType = async () => {
-      if (user?.email) {
-        const bodyTypeDoc = await getDoc(doc(db, "bodyTypes", user.uid));
-        if (bodyTypeDoc.exists()) {
-          setUserBodyType(bodyTypeDoc.data().bodyType);
-        }
-      }
-    };
-    fetchBodyType();
-  }, [user]);
+ 
 
   useEffect(() => {
     const scrollToBottom = () => {
@@ -44,7 +29,7 @@ const ChatBot = () => {
     if (inputMessage.trim()) {
       setMessages((prev) => [...prev, { text: inputMessage, isBot: false }]);
       setInputMessage("");
-      const bT = userBodyType? userBodyType : ''
+      const bT = userBodyType.length>0 ? userBodyType : ''
 
       try {
         const response = await fetch("/api/chatbot", {

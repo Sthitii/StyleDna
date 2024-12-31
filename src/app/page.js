@@ -1,11 +1,9 @@
 "use client";
 
-import React from "react";
-import { Heart } from "lucide-react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import image1 from "@/assets/sample1.avif";
 import hero1 from "@/assets/hero2.jpg";
 import hero2 from "@/assets/hero7.jpg";
 import hero3 from "@/assets/hero4.jpg";
@@ -13,11 +11,26 @@ import Image from "next/image";
 import ChatBot from "@/components/shared/chatbot";
 import Header from "@/components/layout/Header";
 import productData from "@/data/product.json";
-import ProductCarousel from '@/components/products/ProductCarousel';
-
-
+import ProductCarousel from "@/components/products/ProductCarousel";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/lib/firebase/config";
+import { useAuth } from "@/context/AuthContext";
 
 const Home = () => {
+  const [userBodyType, setUserBodyType] = useState(null);
+  const { user } = useAuth();
+
+  useEffect(() => {
+    const fetchBodyType = async () => {
+      if (user?.email) {
+        const bodyTypeDoc = await getDoc(doc(db, "bodyTypes", user.uid));
+        if (bodyTypeDoc.exists()) {
+          setUserBodyType(bodyTypeDoc.data().bodyType);
+        }
+      }
+    };
+    fetchBodyType();
+  }, [user]);
 
   const responsive = {
     superLargeDesktop: {
@@ -39,8 +52,6 @@ const Home = () => {
     },
   };
 
-
-
   return (
     <div className="min-h-screen flex flex-col">
       {/* Announcement Bar */}
@@ -48,7 +59,7 @@ const Home = () => {
         USE CODE UWL20 FOR 20% OFF ALMOST EVERYTHING
       </div>
       {/* Navigation */}
-      <Header/>
+      <Header />
       <div className="relative h-[600px] overflow-hidden">
         <Carousel
           swipeable={true}
@@ -159,7 +170,7 @@ const Home = () => {
         ))}
       </div>
       {/* Products Grid */}
-      <ProductCarousel products={productData.products}/>
+      <ProductCarousel products={productData.products} />
       {/* Footer */}
       <footer className="bg-black text-white mt-auto">
         <div className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -192,7 +203,7 @@ const Home = () => {
           </div>
         </div>
       </footer>
-      <ChatBot />
+      {userBodyType && <ChatBot userBodyType={userBodyType} />}
     </div>
   );
 };
