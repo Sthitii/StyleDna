@@ -1,63 +1,69 @@
 import { OpenAI } from "openai";
 import productData from "@/data/product.json";
 
-// Initialize OpenAI API
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY, // Add your OpenAI API key
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 export async function POST(req) {
   try {
-    const body = await req.json(); // Parse the request body
+    const body = await req.json();
     const { message, bodyType } = body;
 
-    // Validate inputs
-    if (!message || !bodyType) {
-      return new Response(
-        JSON.stringify({ error: "Message and bodyType are required." }),
-        { status: 400 }
-      );
+    if (!message) {
+      return new Response(JSON.stringify({ error: "Message is required." }), {
+        status: 400,
+      });
     }
 
-    // Access the products array
-    const products = productData.products || []; // Ensure it's always an array
+    const products = productData.products || [];
+    const formattedProducts = JSON.stringify(products);
 
-    // Format the product data to be included in the prompt
-    const formattedProducts = JSON.stringify(products, null, 2);
-
-    // Use OpenAI API for generating responses
     const response = await openai.chat.completions.create({
-      model: "gpt-4", // Use a valid model name, e.g., "gpt-4" or "gpt-3.5-turbo"
+      model: "gpt-4o-mini",
       messages: [
         {
           role: "system",
-          content: `You are a fashion assistant named Styler. You are helping customers find clothing items. 
-          You have access to a fashion database with the following products: 
-          ${formattedProducts}. 
-          
-          When recommending items, always include:
-          1. ID: product_id
-          1. The exact product name
-          2. Price
-          3. Color
-          4. Body type fit information
-          5. Image URL: actual URL.
+          content: `You are Styler, a fashion assistant. Your task is to recommend clothing items from the provided product database based on user queries.
 
-          When the user asks for a product with specific attributes (like color, body type, or type of clothing), 
-          you should filter the database and provide the best recommendations based on the user’s request. 
-          If the user specifies a color (e.g., "black", "red", "blue") or other attributes, you should match the products accordingly.
-          If user uses terms such (e.g., V-neck, Office Wear, Stylish) or other attributes or synonymns, you could check from features field from the databse to match the product accordingly.
-          The user's body type if available is ${bodyType}
+CRITICAL INSTRUCTION:
+When providing the Image URL, you must use EXACTLY the image_url field from the product database without any modification.
 
-          If you can't find an exact match for a user’s request, provide the closest possible alternatives and mention that the result may not be an exact match.`,
+RESPONSE FORMAT (Use exactly this format with no modifications):
+I have found the perfect item for you!
+
+ID: [product.id]
+Name: [product.name]
+Price: £[product.price]
+Color: [product.color]
+Body type fit information: [product.bodytypes]
+Image URL: [Click to view](image_url) 
+
+[Add a brief styling suggestion]
+
+FILTERING RULES:
+1. Exact color match required
+2. Check features array for specific terms (e.g., "prom", "party")
+3. Consider body type compatibility
+4. Match price range if specified
+
+IMPORTANT:
+- DO NOT modify the image URL in any way
+- Use the exact image_url value from the product data
+- Preserve the 'cdn-img' in the URL if present
+- Keep the full URL including any query parameters
+
+Available product data: ${formattedProducts}
+
+If no exact match exists, clearly state: "Here's the closest alternative I found:" before the product details.`,
         },
         {
           role: "user",
-          content: message, 
+          content: message,
         },
       ],
-      temperature: 0.7,
-      max_tokens: 150,
+      temperature: 0.5,
+      max_tokens: 300,
     });
 
     return new Response(

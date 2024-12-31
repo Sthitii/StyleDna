@@ -4,6 +4,7 @@ import { MessageCircle, Send, X } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase/config";
+import Link from "next/link";
 
 const ChatBot = () => {
   const { user } = useAuth();
@@ -89,28 +90,26 @@ const ChatBot = () => {
     console.log("Incoming text:", text);
     try {
       // First check if this is a product response
-      if (!text.includes("ID:") || !text.includes("Product Name:")) {
+      if (!text.includes("ID:") || !text.includes("Name:")) { 
         return text;
       }
 
       // Parse the individual components
       const parts = {
-        id: text.match(/ID: (\d+)/)?.[1],
-        name: text.match(/Product Name: ([^\n]+)/)?.[1],
-        price: text.match(/Price: \$(\d+)/)?.[1],
-        color: text.match(/Color: ([^\n]+)/)?.[1],
-        bodyType:
-          text.match(/Body Type Fit: ([^\n]+)/)?.[1] ||
-          text.match(/Body type fit information: ([^\n]+)/)?.[1],
-        imageUrl: text.match(/Image URL: \[(.*?)\]\((.*?)\)/)?.[2],
+        id: text.match(/ID:\s*(\d+)/)?.[1],
+        name: text.match(/Name:\s*([^\n]+)/)?.[1], // Changed from Product Name to Name
+        price: text.match(/Price:\s*£(\d+)/)?.[1], // Changed from $ to £
+        color: text.match(/Color:\s*([^\n]+)/)?.[1],
+        bodyType: text.match(/Body type fit information:\s*([^\n]+)/)?.[1],
+        imageUrl: text.match(/Image URL:\s*\[.*?\]\((.*?)\)/)?.[1], // Updated to capture URL correctly
       };
 
       console.log("Parsed parts:", parts);
 
       // Get description (everything after the Image URL)
-      const description = text.split("Image URL:")[1]?.split(")")?.[1]?.trim();
+      const description = text.split(/\)/).pop()?.trim();
 
-      if (!parts.name) return text; // If parsing failed, return original text
+      if (!parts.name) return text; 
 
       return (
         <div className="product-card bg-white rounded-lg p-4 space-y-4">
@@ -118,6 +117,7 @@ const ChatBot = () => {
 
           {parts.imageUrl && (
             <div className="relative w-full h-48 rounded-lg overflow-hidden">
+             
               <a
                 target="_blank"
                 rel="noopener noreferrer"
@@ -126,16 +126,17 @@ const ChatBot = () => {
                 <img
                   src={parts.imageUrl}
                   alt={parts.name}
-                  className="object-cover w-full h-full"
+                  className="w-full h-full"
                 />
               </a>
+             
             </div>
           )}
 
           <div className="grid grid-cols-2 gap-4">
             <div className="text-sm">
               <span className="font-medium">Price:</span>
-              <span className="text-gray-700"> ${parts.price}</span>
+              <span className="text-gray-700"> £{parts.price}</span>
             </div>
             <div className="text-sm">
               <span className="font-medium">Color:</span>

@@ -1,6 +1,7 @@
 import { Inter } from 'next/font/google';
 import "@/styles/global.css";
 import { AuthProvider } from "@/context/AuthContext";
+import CartSidebar from '@/components/cart/cartSidebar';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -15,6 +16,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <AuthProvider>
           {children}
+          <CartSidebar />
         </AuthProvider>
       </body>
     </html>

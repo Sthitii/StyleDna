@@ -16,6 +16,7 @@ import { saveBodyType } from "@/lib/firebase/database";
 import { useAuth } from "@/context/AuthContext";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase/config";
+import LoadingSpinner from "@/components/shared/Loading";
 
 const BodyTypePage = () => {
   const { user } = useAuth();
@@ -303,6 +304,11 @@ const BodyTypePage = () => {
           </motion.div>
         )}
       </div>
+      {loading ? (
+        <div className="justify-center flex items-center h-screen">
+        <LoadingSpinner size="medium" type="dots" text="Please wait..." />
+        </div>
+      ) : null}
     </div>
   );
 };
