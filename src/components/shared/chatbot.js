@@ -113,7 +113,7 @@ const ChatBot = (userBodyType) => {
                 <img
                   src={parts.imageUrl}
                   alt={parts.name}
-                  className="w-full h-full"
+                  className="w-full h-full object-contain"
                 />
               </a>
              
