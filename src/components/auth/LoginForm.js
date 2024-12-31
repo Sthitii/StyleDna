@@ -100,12 +100,12 @@ const LoginForm = () => {
             <h1 className="text-2xl font-light tracking-widest">STYLEDNA</h1>
           </div>
           <div className="flex items-center space-x-8">
-            <Link href="/women" className="text-sm tracking-wide">Shop</Link>
-            <Link href="/about" className="text-sm tracking-wide">About</Link>
+            <Link href="/working" className="text-sm tracking-wide">Shop</Link>
+            <Link href="/working" className="text-sm tracking-wide">About</Link>
           </div>
           <div className="flex items-center space-x-6">
             <Link href="/register" className="text-sm tracking-wide">Sign Up</Link>
-            <Link href="/bag" className="text-sm tracking-wide">Bag</Link>
+            <Link href="/working" className="text-sm tracking-wide">Bag</Link>
           </div>
         </nav>
 
@@ -158,7 +158,7 @@ const LoginForm = () => {
               </div>
 
               <div className="flex justify-end">
-                <Link href="/forgot-password" className="text-sm underline">
+                <Link href="/working" className="text-sm underline">
                   Forgot your password?
                 </Link>
               </div>

@@ -170,7 +170,7 @@ const RegisterForm = () => {
                     required
                   />
                   <span className="text-sm text-gray-600">
-                    I agree to the <Link href="/terms" className="underline">Terms & Conditions</Link> and <Link href="/privacy" className="underline">Privacy Policy</Link>
+                    I agree to the <Link href="/working" className="underline">Terms & Conditions</Link> and <Link href="/working" className="underline">Privacy Policy</Link>
                   </span>
                 </label>
               </div>
