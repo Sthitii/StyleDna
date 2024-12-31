@@ -4,7 +4,7 @@ import { MessageCircle, Send, X } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase/config";
-import Link from "next/link";
+
 
 const ChatBot = () => {
   const { user } = useAuth();

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { signUp, signInWithGoogle } from '@/lib/firebase/auth';
+import { signUp } from '@/lib/firebase/auth';
 import { Eye, EyeOff } from 'lucide-react';
 import Image from "next/image";
 import imageLogin from "@/assets/login1.png";

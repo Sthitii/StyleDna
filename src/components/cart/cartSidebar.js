@@ -2,9 +2,9 @@
 
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Plus, Minus } from "lucide-react";
+import { Plus, Minus } from "lucide-react";
 import useCartStore from "@/store/cartStore";
-import Image from "next/image";
+
 
 const CartSidebar = () => {
   const items = useCartStore((state) => state.items);
