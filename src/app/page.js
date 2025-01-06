@@ -32,7 +32,6 @@ const Home = () => {
     fetchBodyType();
   }, [user]);
 
-  console.log(userBodyType, user?.email, "any value present");
 
   const responsive = {
     superLargeDesktop: {

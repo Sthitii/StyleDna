@@ -189,7 +189,7 @@ export default function ProductDetail({ params: paramsPromise }) {
           </div>
         </div>
       </div>
-      <ChatBot />
+    
     </>
   );
 }

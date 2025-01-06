@@ -121,7 +121,6 @@ const BodyTypePage = () => {
     }
     // Logic for determining body type
     let result = "";
-    console.log(bustValue, hipValue, waistValue, highHipValue, "highHipValue");
     if (
       Math.abs(bustValue - hipValue) <= 2 &&
       waistValue < bustValue &&

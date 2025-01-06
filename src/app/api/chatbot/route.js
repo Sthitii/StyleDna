@@ -17,7 +17,19 @@ export async function POST(req) {
     }
 
     const products = productData.products || [];
-    const formattedProducts = JSON.stringify(products);
+    let filteredProducts = products;
+    if (bodyType) {
+      filteredProducts = products.filter((product) => {
+        // Parse the bodytypes string into an array
+        const bodyTypes = product.bodytypes
+          .replace(/[\[\]]/g, "") // Remove square brackets
+          .split(",") // Split by comma
+          .map((type) => type.trim().toLowerCase()); // Trim whitespace and convert to lowercase
+
+        return bodyTypes.includes(bodyType.toLowerCase());
+      });
+    }
+    const formattedProducts = JSON.stringify(filteredProducts);
 
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini",
@@ -63,7 +75,7 @@ If no exact match exists, clearly state: "Here's the closest alternative I found
         },
       ],
       temperature: 0.5,
-      max_tokens: 300,
+      max_tokens: 400,
     });
 
     return new Response(

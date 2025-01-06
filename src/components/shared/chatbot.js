@@ -4,7 +4,6 @@ import { MessageCircle, Send, X } from "lucide-react";
 
 
 const ChatBot = (userBodyType) => {
-  console.log(userBodyType, 'kuch bt value?')
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState([
@@ -30,7 +29,8 @@ const ChatBot = (userBodyType) => {
     if (inputMessage.trim()) {
       setMessages((prev) => [...prev, { text: inputMessage, isBot: false }]);
       setInputMessage("");
-      const bT = userBodyType.length>0 ? userBodyType : ''
+      const bT =  userBodyType;
+   
 
       try {
         const response = await fetch("/api/chatbot", {
@@ -38,14 +38,13 @@ const ChatBot = (userBodyType) => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             message: inputMessage,
-            bodyType: bT, 
+            bodyType: bT.userBodyType, 
           }),
         });
 
         const data = await response.json();
 
         if (data.reply) {
-          console.log(data.reply, "response data");
           setMessages((prev) => [
             ...prev,
             {
@@ -67,14 +66,12 @@ const ChatBot = (userBodyType) => {
   };
 
   const handleKeyPress = (e) => {
-    console.log('Key pressed', e.key);  // Add this log
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSend();
     }
   };
   const formatProductResponse = (text) => {
-    console.log("Incoming text:", text);
     try {
       // First check if this is a product response
       if (!text.includes("ID:") || !text.includes("Name:")) { 
@@ -91,7 +88,6 @@ const ChatBot = (userBodyType) => {
         imageUrl: text.match(/Image URL:\s*\[.*?\]\((.*?)\)/)?.[1], // Updated to capture URL correctly
       };
 
-      console.log("Parsed parts:", parts);
 
       // Get description (everything after the Image URL)
       const description = text.split(/\)/).pop()?.trim();
