@@ -139,7 +139,7 @@ const Home = () => {
                     </h1>
                     <p className="text-2xl mb-8">ECO-FRIENDLY COLLECTION</p>
                     <Link
-                      href="/sustainability"
+                      href="/working"
                       className="border-2 border-white px-8 py-3 hover:bg-white hover:text-black transition"
                     >
                       SHOP SUSTAINABLE

@@ -8,7 +8,7 @@ const ChatBot = (userBodyType) => {
   const [isLoading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState([
     {
-      text: "Hello! I'm Sthitii, your fashion assistant. How can I help you today?",
+      text: "Hello! I'm Erin, your fashion assistant. How can I help you today?",
       isBot: true,
     },
   ]);
